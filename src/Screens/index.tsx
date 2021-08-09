@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
+import { NavigationProp, ParamListBase } from '@react-navigation/native'
 
 import { View, Text, StyleSheet, Button } from 'react-native';
 
@@ -6,7 +7,7 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 
 interface RoutesProps {
   children: ReactNode;
-  navigation?: ReactNode;
+  navigation?: NavigationProp<ParamListBase>
 }
 
 const ScreenContainer = ({ children }: RoutesProps) => (
@@ -63,7 +64,7 @@ export const SignIn = ({ navigation }: RoutesProps) => {
     <ScreenContainer>
       <Text>Sign In Screen</Text>
       <Button title="Sign In" onPress={() => alert("todo!")} />
-      <Button title="Create Account" onPress={() => alert("todo!")} />
+      <Button title="Create Account" onPress={() => navigation?.navigate('CreateAccount')} />
     </ScreenContainer>
   );
 };
