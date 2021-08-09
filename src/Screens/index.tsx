@@ -1,39 +1,59 @@
-import React, { ReactNode } from 'react';
-import { NavigationProp, ParamListBase } from '@react-navigation/native'
+import React, { ReactNode } from "react";
+import {
+  NavigationProp,
+  ParamListBase,
+  RouteProp,
+  
+} from "@react-navigation/native";
 
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button } from "react-native";
 
 // import { AuthContext } from "./context";
 
 interface RoutesProps {
   children: ReactNode;
-  navigation?: NavigationProp<ParamListBase>
+  navigation?: NavigationProp<ParamListBase>;
+  route?: RouteProp<ParamListBase>;
 }
 
 const ScreenContainer = ({ children }: RoutesProps) => (
   <View style={styles.container}>{children}</View>
 );
 
-export const Home = () => (
+export const Home = ({ navigation }: RoutesProps) => (
   <ScreenContainer>
     <Text>Master List Screen</Text>
-    <Button title="React Native by Example" onPress={() => alert("todo!")} />
-    <Button title="React Native School" onPress={() => alert("todo!")} />
+    <Button
+      title="React Native by Example"
+      onPress={() =>
+        navigation!.navigate("Details", { name: "React Native by Example" })
+      }
+    />
+    <Button
+      title="React Native School"
+      onPress={() =>
+        navigation?.navigate("Details", { name: "React Native School" })
+      }
+    />
     <Button title="Drawer" onPress={() => alert("todo!")} />
   </ScreenContainer>
 );
 
-export const Details = () => (
-  <ScreenContainer>
-    <Text>Details Screen</Text>
-  </ScreenContainer>
-);
+export const Details = ({ route }: RoutesProps) => (
+    <ScreenContainer>
+      <Text>Details Screen</Text>
+      {route!.params!.name && <Text>{route?.params?.name}</Text>}
+    </ScreenContainer>
+  );
 
 export const Search = ({ navigation }: RoutesProps) => (
   <ScreenContainer>
     <Text>Search Screen</Text>
-    <Button title="Search 2" onPress={() => alert("todo!")} />
-    <Button title="React Native School" onPress={() => alert("todo!")} />
+    <Button title="Search 2" onPress={() => navigation?.navigate('Search2')} />
+    <Button title="React Native School" onPress={() => navigation?.navigate('Home', {
+      screen: 'Details',
+      params: {name: 'React Native School'}
+    })} />
   </ScreenContainer>
 );
 
@@ -64,7 +84,10 @@ export const SignIn = ({ navigation }: RoutesProps) => {
     <ScreenContainer>
       <Text>Sign In Screen</Text>
       <Button title="Sign In" onPress={() => alert("todo!")} />
-      <Button title="Create Account" onPress={() => navigation?.navigate('CreateAccount')} />
+      <Button
+        title="Create Account"
+        onPress={() => navigation?.navigate("CreateAccount")}
+      />
     </ScreenContainer>
   );
 };
@@ -82,12 +105,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   button: {
     paddingHorizontal: 20,
     paddingVertical: 10,
     marginVertical: 10,
-    borderRadius: 5
-  }
+    borderRadius: 5,
+  },
 });
