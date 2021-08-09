@@ -3,7 +3,7 @@ import {
   NavigationProp,
   ParamListBase,
   RouteProp,
-  
+  DrawerActions
 } from "@react-navigation/native";
 
 import { View, Text, StyleSheet, Button } from "react-native";
@@ -35,7 +35,7 @@ export const Home = ({ navigation }: RoutesProps) => (
         navigation?.navigate("Details", { name: "React Native School" })
       }
     />
-    <Button title="Drawer" onPress={() => alert("todo!")} />
+    <Button title="Drawer" onPress={() => navigation?.dispatch(DrawerActions.toggleDrawer())} />
   </ScreenContainer>
 );
 
@@ -67,7 +67,7 @@ export const Profile = ({ navigation }: RoutesProps) => {
   return (
     <ScreenContainer>
       <Text>Profile Screen</Text>
-      <Button title="Drawer" onPress={() => alert("todo!")} />
+      <Button title="Drawer" onPress={() => navigation?.dispatch(DrawerActions.toggleDrawer())} />
       <Button title="Sign Out" onPress={() => alert("todo!")} />
     </ScreenContainer>
   );
