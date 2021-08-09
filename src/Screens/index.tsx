@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useContext } from "react";
 import {
   NavigationProp,
   ParamListBase,
@@ -8,7 +8,7 @@ import {
 
 import { View, Text, StyleSheet, Button } from "react-native";
 
-// import { AuthContext } from "./context";
+import { AuthContext } from "../context/authContext";
 
 interface RoutesProps {
   children: ReactNode;
@@ -64,11 +64,12 @@ export const Search2 = () => (
 );
 
 export const Profile = ({ navigation }: RoutesProps) => {
+  const { signOut } = useContext(AuthContext);
   return (
     <ScreenContainer>
       <Text>Profile Screen</Text>
       <Button title="Drawer" onPress={() => navigation?.dispatch(DrawerActions.toggleDrawer())} />
-      <Button title="Sign Out" onPress={() => alert("todo!")} />
+      <Button title="Sign Out" onPress={() => signOut()} />
     </ScreenContainer>
   );
 };
@@ -80,10 +81,12 @@ export const Splash = () => (
 );
 
 export const SignIn = ({ navigation }: RoutesProps) => {
+  const { signIn } = useContext(AuthContext);
+
   return (
     <ScreenContainer>
       <Text>Sign In Screen</Text>
-      <Button title="Sign In" onPress={() => alert("todo!")} />
+      <Button title="Sign In" onPress={() => signIn()} />
       <Button
         title="Create Account"
         onPress={() => navigation?.navigate("CreateAccount")}
@@ -93,10 +96,11 @@ export const SignIn = ({ navigation }: RoutesProps) => {
 };
 
 export const CreateAccount = () => {
+  const { signIn } = useContext(AuthContext);
   return (
     <ScreenContainer>
       <Text>Create Account Screen</Text>
-      <Button title="Sign Up" onPress={() => alert("todo!")} />
+      <Button title="Sign Up" onPress={() => signIn()} />
     </ScreenContainer>
   );
 };
